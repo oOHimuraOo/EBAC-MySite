@@ -1,8 +1,11 @@
-import unittest
+import pytest
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)  # add assertion here
+from blog.factories.factory import PostFactory
 
-if __name__ == '__main__':
-    unittest.main()
+@pytest.fixture
+def post_published():
+    return PostFactory(title='pytest with factory')
+
+@pytest.mark.django_db
+def test_create_published_post(post_published):
+    assert post_published.title == 'pytest with factory'
