@@ -4,6 +4,6 @@ from blog.views import HomeView
 from blog.views import PostView
 
 urlpatterns = [
-    path('post/', PostView.as_view(), name='post'),
+    path('post/<slug:slug>/', PostView.as_view(), name='post_detail'),
     path('', HomeView.as_view(), name='home'),
 ]

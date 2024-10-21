@@ -1,13 +1,13 @@
-# from django.http import HttpResponse
-# from django.views import generic
-
-# class PostView(generic.View):
-#     def get(self, request, *args, **kwargs):
-#         return HttpResponse('Hello World')
 from django.views import generic
 
-from blog.models import Post
-
-class PostView(generic.ListView):
-    queryset = Post.objects.filter(status=1).order_by('-created_on')
-    template_name = 'index.html'
+class PostView(generic.DetailView):
+    template_name = 'post_detail.html'
+    
+    def get_object(self, queryset = None):
+        from blog.models import Post
+        
+        slug = self.kwargs.get('slug')
+        
+        context = Post.objects.get(slug = slug)
+        
+        return context
